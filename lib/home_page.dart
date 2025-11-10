@@ -5,6 +5,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text("Homepage"));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("HomePage"),
+        backgroundColor: Colors.blueGrey,
+        leading: Icon(Icons.home),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+        ],
+      ),
+      body: Text("Homepage"),
+    );
   }
 }
