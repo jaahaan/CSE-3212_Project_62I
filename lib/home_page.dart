@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_62i/profile_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -44,17 +45,50 @@ class HomePage extends StatelessWidget {
         shape: CircleBorder(),
         child: Icon(Icons.add),
       ),
-      body: Center(
-        child: Text(
-          "Homepage",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.blueGrey,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
+      body: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/images/flutter.png", height: 200, width: 200),
+          Text(
+            "Homepage",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.blueGrey,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ProfilePage();
+                        },
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    foregroundColor: Colors.white,
+                    fixedSize: Size(150, 40),
+                  ),
+                  child: Text("Elevated"),
+                ),
+              ),
+              ElevatedButton(onPressed: () {}, child: Text("Hello")),
+              SizedBox(width: 20),
+              OutlinedButton(onPressed: () {}, child: Text("Outlined")),
+              TextButton(onPressed: () {}, child: Text("Hello")),
+            ],
+          ),
+        ],
       ),
     );
   }
