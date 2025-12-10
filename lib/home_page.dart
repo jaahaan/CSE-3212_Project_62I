@@ -45,50 +45,77 @@ class HomePage extends StatelessWidget {
         shape: CircleBorder(),
         child: Icon(Icons.add),
       ),
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/images/flutter.png", height: 200, width: 200),
-          Text(
-            "Homepage",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.blueGrey,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/images/flutter.png", height: 200, width: 200),
+            Text(
+              "Homepage",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+                color: Colors.blueGrey,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ProfilePage();
-                        },
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown,
-                    foregroundColor: Colors.white,
-                    fixedSize: Size(150, 40),
-                  ),
-                  child: Text("Elevated"),
+            SizedBox(
+              height: 200,
+              width: 200,
+              child: Card(
+                color: Colors.brown,
+                child: Center(
+                  child: Text("Card", style: TextStyle(color: Colors.white)),
                 ),
               ),
-              ElevatedButton(onPressed: () {}, child: Text("Hello")),
-              SizedBox(width: 20),
-              OutlinedButton(onPressed: () {}, child: Text("Outlined")),
-              TextButton(onPressed: () {}, child: Text("Hello")),
-            ],
-          ),
-        ],
+            ),
+            Container(
+              height: 300,
+              width: 300,
+              padding: EdgeInsets.fromLTRB(20, 30, 40, 50),
+              margin: EdgeInsets.all(20),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+                border: Border.all(color: Colors.lightBlueAccent, width: 5),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                // shape: BoxShape.circle,
+              ),
+              child: Text("Container"),
+            ),
+
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ProfilePage();
+                          },
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown,
+                      foregroundColor: Colors.white,
+                      fixedSize: Size(150, 40),
+                    ),
+                    child: Text("Elevated"),
+                  ),
+                ),
+                ElevatedButton(onPressed: () {}, child: Text("Hello")),
+                SizedBox(width: 20),
+                OutlinedButton(onPressed: () {}, child: Text("Outlined")),
+                TextButton(onPressed: () {}, child: Text("Hello")),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
