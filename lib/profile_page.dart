@@ -40,6 +40,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Field is Empty";
+                        } else if (!RegExp(
+                          r'^[A-Za-z .]{3,}$',
+                        ).hasMatch(value)) {
+                          return 'Invalid Format!!';
                         }
                         return null;
                       },

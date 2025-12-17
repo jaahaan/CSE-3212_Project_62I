@@ -17,7 +17,7 @@ class InputField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      // obscureText: true,
+      obscureText: keyboardType == TextInputType.visiblePassword ? true : false,
       validator: validator,
       decoration: InputDecoration(
         labelText: label,
