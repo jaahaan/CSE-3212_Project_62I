@@ -3,9 +3,25 @@ import 'package:project_62i/converter_page.dart';
 import 'package:project_62i/gridview_page.dart';
 import 'package:project_62i/listview_page.dart';
 import 'package:project_62i/profile_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _supabase = Supabase.instance.client;
+
+  Future<Map<String, dynamic>?> getCurrentUser() async {
+    final user = _supabase.auth.currentUser;
+    if (user == null) return null;
+    final res =
+        await _supabase.from('profiles').select().eq('id', user.id).single();
+    return res;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +30,16 @@ class HomePage extends StatelessWidget {
         title: Text("HomePage"),
         backgroundColor: Colors.blueGrey,
         // leading: Icon(Icons.home),
-        // actions: [
-        //   IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
-        //   IconButton(onPressed: () {}, icon: Icon(Icons.person)),
-        // ],
+        actions: [
+          IconButton(
+            onPressed: () {
+              _supabase.auth.signOut();
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
       ),
-      endDrawer: NavigationDrawer(
+      drawer: NavigationDrawer(
         children: [
           DrawerHeader(
             child: UserAccountsDrawerHeader(
@@ -54,6 +74,37 @@ class HomePage extends StatelessWidget {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              FutureBuilder(
+                future: getCurrentUser(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Text("Error ${snapshot.error}");
+                  }
+                  if (!snapshot.hasData) {
+                    return const Text("No User Found!!");
+                  }
+                  final profile = snapshot.data as Map<String, dynamic>;
+                  return SizedBox(
+                    width: 300,
+                    height: 100,
+                    child: Card(
+                      color: Colors.blueGrey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Name: ${profile['name']}"),
+                          Text("Email: ${profile['email']}"),
+                          if (profile['avatar_url'] != null)
+                            Image.network(profile['avatar_url']),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

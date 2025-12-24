@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_62i/single_item_page.dart';
 
 class ListviewPage extends StatelessWidget {
   const ListviewPage({super.key});
@@ -55,12 +56,30 @@ class ListviewPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: myItems.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: Row(
-              children: [
-                Image.network(myItems[index]['img']!, height: 100, width: 100),
-                Text(myItems[index]['title']!),
-              ],
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => SingleItemPage(
+                        img: myItems[index]['img']!,
+                        title: myItems[index]['title']!,
+                      ),
+                ),
+              );
+            },
+            child: Card(
+              child: Row(
+                children: [
+                  Image.network(
+                    myItems[index]['img']!,
+                    height: 100,
+                    width: 100,
+                  ),
+                  Text(myItems[index]['title']!),
+                ],
+              ),
             ),
           );
         },
