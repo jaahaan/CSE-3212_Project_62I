@@ -3,6 +3,7 @@ import 'package:project_62i/converter_page.dart';
 import 'package:project_62i/gridview_page.dart';
 import 'package:project_62i/listview_page.dart';
 import 'package:project_62i/profile_page.dart';
+import 'package:project_62i/upload_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -89,16 +90,40 @@ class _HomePageState extends State<HomePage> {
                   final profile = snapshot.data as Map<String, dynamic>;
                   return SizedBox(
                     width: 300,
-                    height: 100,
+                    height: 300,
                     child: Card(
                       color: Colors.blueGrey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Name: ${profile['name']}"),
-                          Text("Email: ${profile['email']}"),
                           if (profile['avatar_url'] != null)
-                            Image.network(profile['avatar_url']),
+                            Image.network(
+                              profile['avatar_url'],
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
+
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return UploadPage();
+                                  },
+                                ),
+                              );
+                            },
+
+                            child: Text("Upload Image"),
+                          ),
+                          SizedBox(height: 10),
+                          Text("Name: ${profile['name']}"),
+                          SizedBox(height: 10),
+                          Text("Email: ${profile['email']}"),
+                          SizedBox(height: 10),
                         ],
                       ),
                     ),
